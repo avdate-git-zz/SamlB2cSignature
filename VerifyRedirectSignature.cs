@@ -3,6 +3,8 @@
 //----------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -18,7 +20,8 @@ namespace SignAndVerifySignature
             string detachedSignatureAlgorithm = redirectUrl.QueryParameters[HttpParameters.SignatureAlgorithm];
             string detachedSignature = redirectUrl.QueryParameters[HttpParameters.Signature];
             string relayState = redirectUrl.QueryParameters[HttpParameters.RelayState];
-            string signedQueryString = GetSignedPortion(samlRequest, relayState, detachedSignatureAlgorithm, isSamlRequest: true);
+            string signedQueryString = GetOrderAgnosticSignedPortion(redirectUrl.ToString(), isSamlRequest: true);
+            //string signedQueryString = GetSignedPortion(samlRequest, relayState, detachedSignatureAlgorithm, isSamlRequest: true);
             return VerifyDetachedSignature(detachedSignature, detachedSignatureAlgorithm, signedQueryString, certIdentifier);
         }
 
@@ -33,6 +36,46 @@ namespace SignAndVerifySignature
             signedPortion = signedPortion + (string.IsNullOrEmpty(relayState) ? string.Empty : "&" + HttpParameters.RelayState + "=" + HttpUtility.UrlEncode(relayState));
             signedPortion = signedPortion + (string.IsNullOrEmpty(sigAlg) ? string.Empty : "&" + HttpParameters.SignatureAlgorithm + "=" + HttpUtility.UrlEncode(sigAlg));
             return signedPortion;
+        }
+
+        /// <summary>
+        /// Extracts the URL encoded query string parameters from the
+        /// SAMLRequest/Response as per per saml spec [saml-bindings-2.0-os] 3.4.4.1
+        /// </summary>
+        /// <param name="rawUrl">The raw URL encoded URL</param>
+        /// <param name="isSamlRequest">Is this a SAML request or SAML response</param>
+        /// <returns>the signature</returns>
+        private static string GetOrderAgnosticSignedPortion(string rawUrl, bool isSamlRequest)
+        {
+            // following parsing is as per saml spec [saml-bindings-2.0-os] 3.4.4.1 Line 644
+            // To construct the signature, a string consisting of the concatenation of the RelayState(if present), SigAlg, and SAMLRequest(or SAMLResponse) query string parameters(each one URLencoded)
+            // is constructed in one of the following ways(ordered as below): 
+            // SAMLRequest = value & RelayState = value & SigAlg = value 
+            // SAMLResponse = value & RelayState = value & SigAlg = value
+            List<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>();
+
+            void TryAddPartialString(string parameterName)
+            {
+                int indexOfParameter = rawUrl.IndexOf(parameterName);
+                if (rawUrl.IndexOf(parameterName) == -1)
+                {
+                    return;
+                }
+
+                indexOfParameter += parameterName.Length + 1;
+
+                int nextAmpersand = rawUrl.IndexOf("&", indexOfParameter);
+                int stringLength = nextAmpersand > 0 ? nextAmpersand - indexOfParameter : rawUrl.Length - indexOfParameter;
+
+                string partialString = rawUrl.Substring(indexOfParameter, stringLength);
+                parameters.Add(new KeyValuePair<string, string>(parameterName, partialString));
+            }
+
+            TryAddPartialString(isSamlRequest ? HttpParameters.SamlRequest : HttpParameters.SamlResponse);
+            TryAddPartialString(HttpParameters.RelayState);
+            TryAddPartialString(HttpParameters.SignatureAlgorithm);
+
+            return string.Join("&", parameters.Select(kvp => $"{kvp.Key}={kvp.Value}"));
         }
 
         internal static bool VerifyDetachedSignature(

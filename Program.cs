@@ -18,8 +18,9 @@ namespace SignAndVerifySignature
             string signatureAlogrithm = "SHA1";
 
             // following can be thumbpritn or subject
-            // string certSubject = "CN=samlsp.cpim.localhost.net, OU=AAD, C=US";
-            string certIdentifier = "9999DFCC2BC9BB3B3E3AC594EBED3FDB1A499999";
+            string certSubject = "CN=samlsp.cpim.localhost.net, OU=AAD, C=US";
+            string certIdentifier = "84BDDFCC2BC9BB3B3E3AC594EBED3FDB1A49BD75";
+            certIdentifier = certSubject;
             string samlPayLoad = "<samlp:AuthnRequest AssertionConsumerServiceURL=\"https://samltestapp2.azurewebsites.net/SP/AssertionConsumer\" Destination=\"https://login.microsoftonline.com/te/azureadb2ctests.onmicrosoft.com/B2C_1A_SAMLAPP_demopolicy_signup_signin/samlp/sso/login\" ForceAuthn=\"false\" ID=\"_1314190418\" IsPassive=\"false\" IssueInstant=\"{0}\" ProtocolBinding=\"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST\" Version=\"2.0\" xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\"> <saml:Issuer xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\">https://samltestapp2.azurewebsites.net</saml:Issuer><samlp:NameIDPolicy AllowCreate=\"true\" Format=\"urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress\" SPNameQualifier=\"https://samltestapp2.azurewebsites.net\" xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\"/></samlp:AuthnRequest>";
             
             DateTime issueInstant = DateTime.UtcNow;
