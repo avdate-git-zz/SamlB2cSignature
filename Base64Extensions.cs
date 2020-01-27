@@ -14,6 +14,11 @@ namespace SignAndVerifySignature
     /// </summary>
     public static class Base64Extensions
     {
+        public static bool EqualsOic(this string input, string compare)
+        {
+            return String.Equals(input, compare, StringComparison.OrdinalIgnoreCase);
+        }
+
         /// <summary>
         /// Gets the time-out to use for regex matches.
         /// </summary>
