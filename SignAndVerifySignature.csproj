@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Base64Extensions.cs" />
     <Compile Include="CompressionExtensions.cs" />
+    <Compile Include="EnvelopedSignatureValidation.cs" />
     <Compile Include="HttpParameters.cs" />
     <Compile Include="OasisSamlNamespaces.cs" />
     <Compile Include="Program.cs" />
@@ -69,6 +70,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="metadata.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="working.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

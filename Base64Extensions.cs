@@ -6,14 +6,25 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace SignAndVerifySignature
 {
     /// <summary>
     /// Provides extension methods for Base64 strings
     /// </summary>
-    public static class Base64Extensions
+    public static class Extentions
     {
+        public static XDocument ToXDocument(this XmlDocument xmlDocument)
+        {
+            using (var nodeReader = new XmlNodeReader(xmlDocument))
+            {
+                nodeReader.MoveToContent();
+                return XDocument.Load(nodeReader);
+            }
+        }
+
         public static bool EqualsOic(this string input, string compare)
         {
             return String.Equals(input, compare, StringComparison.OrdinalIgnoreCase);

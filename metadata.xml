@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<md:EntitiesDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="_520e21f4-6aa8-40c4-ba3e-026dc2df683c">
+  <md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://reflector.cpim.localhost.net/client_d" cacheDuration="PT10S">
+    <!--
+ This first certificate is an invalid certificate used for testing multiple signingcertificates
+-->
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>
+            MIIDCzCCAfOgAwIBAgIUQAL3dR8FHcCoY+rwVaAN0O+EEiwwDQYJKoZIhvcNAQEL BQAwEzERMA8GA1UEAwwIc2hpYndpbjIwHhcNMTcwNDEwMjMzOTQ5WhcNMzcwNDEw MjMzOTQ5WjATMREwDwYDVQQDDAhzaGlid2luMjCCASIwDQYJKoZIhvcNAQEBBQAD ggEPADCCAQoCggEBAKjNDcAA69UVnNFRMRF70TufCTcG/w8nzZUtjz9jytm5LwP7 yOvKl4tOYqiQg4qXxgFn27OGwxhCWh/3M9x01nzK1i4Mdur3tF04QWc2MMmq1fIX gSRMxzcnd85gFjbVBegierYqH/gcugyODh+GcW0Jqr51Gsc7TFyyZGYINtF6BIg5 VIYc8IfHZWKyYQyY61Hh8JWO1MDWZ0Z033DeTlumLGvgpsxljHUlj4rdbS8Gd4V5 E6muedo69sqNOoac0lPeC7APQtDj5sFr2CT2uQ77OtysvgmpH9yGFX1e7gm7QHWd mWegC/hAEaogVhe4J7f1w/ZhBggjiUX/D/uV7YUCAwEAAaNXMFUwHQYDVR0OBBYE FJJZqKjPYLNM+YMg+d6TXnJlu6sVMDQGA1UdEQQtMCuCCHNoaWJ3aW4yhh9odHRw czovL3NoaWJ3aW4yL2lkcC9zaGliYm9sZXRoMA0GCSqGSIb3DQEBCwUAA4IBAQBR InvLEOoZfqqh43DcKImlU7TbsgH5+Mihx1F+1X7R7t9olmqyYySazncghYr+IbYt AAbocvaFD8Yk8ixUNQXGAHs3YGOrL5cbE3X9EaPG/uXUx2hYZY28gxlsYxMFyvxV rcjX9RgHWdd8dt3594p3kxLa1ttbms1xTff5quu8AkmhwJYtEZIP8jjFydtNoXqF Jj3VNdzE6PYKy3wodvbTTheSx/2ZBEfTbL0Y706iZYnL4iC1NxLxQXDXm95plThw 19jo+uEDUaIppceE6AjYEBjroJUPD9yYN2lKr8vBTMjRbHsU5U19rf407ezQ/CDj /NmFAaiOFDFwLoHIUxCp
+          </ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>
+            MIIDhDCCAmygAwIBAgIQLscbyUjpRhq3Oecx+LqxujANBgkqhkiG9w0BAQsFADA/MQswCQYDVQQGEwJVUzEMMAoGA1UECxMDQUFEMSIwIAYDVQQDExlzYW1sc3AuY3BpbS5sb2NhbGhvc3QubmV0MB4XDTE3MTEyMDIzMTQ1M1oXDTIwMTEyMDIzMjQ1M1owPzELMAkGA1UEBhMCVVMxDDAKBgNVBAsTA0FBRDEiMCAGA1UEAxMZc2FtbHNwLmNwaW0ubG9jYWxob3N0Lm5ldDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAIzntKQ3eCshrmCV15tsg6epi0yyaB7vNbrcyBWnkAwFNKvDVzgINIdu245uVMPqK5XKe14rwsRv8yhylogTEWfOtbfamq8xyp+aAmMeM2c0BLBpYMSpP1w0fpDUgtsXYaTGHvdnzWw+aW6MJSi2X/kCHlt+fhd/llfOODRpm4dxWVJr36zDMZrFD8CGwaCNzgJO4w5cjVrsu+izNYtrI4euBuVeBT9A+PbqXPssa8luAwEHP0MHfuDmsG2h4jypUa2Bg3hLxU6FfbHDBQCHzQiNf6fZfJhlGeOM3cssFk6yP03pTH//OhDQcLDI7OH6rLc8hgG3uS8jMEou63m/QfcCAwEAAaN8MHowDgYDVR0PAQH/BAQDAgWgMAkGA1UdEwQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMB8GA1UdIwQYMBaAFH/1xl2rPpxtVQoUgFDbm/92iQ8sMB0GA1UdDgQWBBR/9cZdqz6cbVUKFIBQ25v/dokPLDANBgkqhkiG9w0BAQsFAAOCAQEAZ4ZjIqr+88vbQds/3kGrGrqVI2FCznut+zhOZWVJqZAfGVr+ibwDk6B1kRuXm5A6IuQ1LgPSsZFPk6fQBH0bkn/fqhKi3phV42Rvz+Ipznf8D2Z+RWdg4bVJovhn4VbdoVZDEqW3QxIVhh5zh+TKNPLOfI+xB/s7 A6ndHpaXSqtnlMhhbS6PQd2ybTSraGUlIf7Ax3L0vhnuZQi1F+b5AhiUV647IPK/U9P+/W7WAaQSvpVQursia2fZlEJ5GO1gxzl6rTfOL5/yL6FEmSeyJcc2TJIeM0NPTI5TuHLZJSGu9xJNuTga3/Ir/lSge9RPEFtICihMX6tnIuAjc+S91A==
+          </ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+  </md:EntityDescriptor>
+</md:EntitiesDescriptor>
