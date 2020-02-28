@@ -3,6 +3,7 @@
 //----------------------------------------------------------------
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -89,5 +90,26 @@ namespace SignAndVerifySignature
             input = input.Trim();
             return (input.Length % 4 == 0) && Regex.IsMatch(input, @"^[a-zA-Z0-9\+/]*={0,3}$", RegexOptions.None, RegexTimeOut);
         }
+
+        public static XmlDocument ToXmlDocument(this string input, bool preserveWhitespace = true)
+        {
+            XmlDocument document = new XmlDocument()
+            {
+                PreserveWhitespace = preserveWhitespace,
+                XmlResolver = null
+            };
+
+            using (StringReader reader = new StringReader(input))
+            {
+                XmlReaderSettings settings = new XmlReaderSettings() { XmlResolver = null };
+                using (XmlReader xmlReader = XmlReader.Create(reader, settings))
+                {
+                    document.Load(xmlReader);
+                }
+            }
+
+            return document;
+        }
+        
     }
 }

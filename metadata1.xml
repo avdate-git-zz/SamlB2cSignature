@@ -1,0 +1,31 @@
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" 
+            entityID="https://brighthousefinancial.ice.ibmcloud.com/saml/sps/saml20ip/saml20">
+<md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+<md:KeyDescriptor use="signing">
+<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+<X509Data>
+<X509Certificate>MIIDSjCCAjKgAwIBAgIERI0EbjANBgkqhkiG9w0BAQsFADBnMQkwBwYDVQQGEwAxCTAHBgNVBAgTADEJMAcGA1UEBxMAMQkwBwYDVQQKEwAxCTAHBgNVBAsTADEuMCwGA1UEAxMlYnJpZ2h0aG91c2VmaW5hbmNpYWwuaWNlLmlibWNsb3VkLmNvbTAeFw0xODAxMDkxNTA3MjhaFw0yODAxMDcxNTA3MjhaMGcxCTAHBgNVBAYTADEJMAcGA1UECBMAMQkwBwYDVQQHEwAxCTAHBgNVBAoTADEJMAcGA1UECxMAMS4wLAYDVQQDEyVicmlnaHRob3VzZWZpbmFuY2lhbC5pY2UuaWJtY2xvdWQuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArEyc5y3J1UZSJst/Rpc9ubYsv9mdfzzYJEL/1vhdF3ows7a8RC3fXwwTvfIym0SQP+IsmFbVv+9RfZ8hWdp1JQmLmiHguR8gQlevst6Eo6nEPti4FYRVi7zFrbtNEXgpDT7nTFIyAM2KpZhfRTq5w7YEnP5/5RXSAuGZOJpq/K/dXPMLTJxiHYhyaVCYM5wyJXGlHwGVUU+QRXydPFLxQEvLqYxVTWZa0LALIZfSHBs3GfJdovt/n4VUkDPhgzaIrhJSJB5VQU/gyqAfceJ19DeFHmSIV7D5fVY2BwEaSXMZ4BgB11ykqfgFd7dti9q3kX7KIYyioU4wmW2SM++FhQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAc2YwkcRUIKNaR9LmLdXQvL9FoRsfyLjFXCBX7LcD+tW3ShWucne9P0bkKGlCmgqAvqUWkDECsgaptre17TFFvZyoJKaqpcXqGzUnsrO51lLndnnD/C0Shbme5Zl5S/RaevIT5DYIEp9A8twS2kARiyYo69Hmzhk3T6aD46Fco5CdQEM9fe6h9yBGQBNQzVm16MDrmbK45qIw8Rjyn+299S4Qu9crUNRyVvvax05cFQcX9XgKcGyJ72NI0r8IwHpPI4v+Tm3edzIKhiD3ZOZB2Y1EQiebDuWulgx50nsZ+pik+WfKEMs+s2vzy+XmrJc5kYPilYabXbk5TKHfdkVl+</X509Certificate>
+</X509Data>
+</KeyInfo>
+</md:KeyDescriptor>
+<md:KeyDescriptor use="encryption">
+<KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+<X509Data>
+<X509Certificate>MIIDSjCCAjKgAwIBAgIERI0EbjANBgkqhkiG9w0BAQsFADBnMQkwBwYDVQQGEwAxCTAHBgNVBAgTADEJMAcGA1UEBxMAMQkwBwYDVQQKEwAxCTAHBgNVBAsTADEuMCwGA1UEAxMlYnJpZ2h0aG91c2VmaW5hbmNpYWwuaWNlLmlibWNsb3VkLmNvbTAeFw0xODAxMDkxNTA3MjhaFw0yODAxMDcxNTA3MjhaMGcxCTAHBgNVBAYTADEJMAcGA1UECBMAMQkwBwYDVQQHEwAxCTAHBgNVBAoTADEJMAcGA1UECxMAMS4wLAYDVQQDEyVicmlnaHRob3VzZWZpbmFuY2lhbC5pY2UuaWJtY2xvdWQuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArEyc5y3J1UZSJst/Rpc9ubYsv9mdfzzYJEL/1vhdF3ows7a8RC3fXwwTvfIym0SQP+IsmFbVv+9RfZ8hWdp1JQmLmiHguR8gQlevst6Eo6nEPti4FYRVi7zFrbtNEXgpDT7nTFIyAM2KpZhfRTq5w7YEnP5/5RXSAuGZOJpq/K/dXPMLTJxiHYhyaVCYM5wyJXGlHwGVUU+QRXydPFLxQEvLqYxVTWZa0LALIZfSHBs3GfJdovt/n4VUkDPhgzaIrhJSJB5VQU/gyqAfceJ19DeFHmSIV7D5fVY2BwEaSXMZ4BgB11ykqfgFd7dti9q3kX7KIYyioU4wmW2SM++FhQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQAc2YwkcRUIKNaR9LmLdXQvL9FoRsfyLjFXCBX7LcD+tW3ShWucne9P0bkKGlCmgqAvqUWkDECsgaptre17TFFvZyoJKaqpcXqGzUnsrO51lLndnnD/C0Shbme5Zl5S/RaevIT5DYIEp9A8twS2kARiyYo69Hmzhk3T6aD46Fco5CdQEM9fe6h9yBGQBNQzVm16MDrmbK45qIw8Rjyn+299S4Qu9crUNRyVvvax05cFQcX9XgKcGyJ72NI0r8IwHpPI4v+Tm3edzIKhiD3ZOZB2Y1EQiebDuWulgx50nsZ+pik+WfKEMs+s2vzy+XmrJc5kYPilYabXbk5TKHfdkVl+</X509Certificate>
+</X509Data>
+</KeyInfo>
+<md:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"/>
+</md:KeyDescriptor>
+<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+<md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+<md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://brighthousefinancial.ice.ibmcloud.com/saml/sps/saml20ip/saml20/login"/>
+<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://brighthousefinancial.ice.ibmcloud.com/saml/sps/saml20ip/saml20/login"/>
+</md:IDPSSODescriptor>
+<md:Organization>
+<md:OrganizationName xml:lang="en">brighthousefinancial.ice.ibmcloud.com</md:OrganizationName>
+<md:OrganizationDisplayName xml:lang="en">brighthousefinancial.ice.ibmcloud.com</md:OrganizationDisplayName>
+<md:OrganizationURL xml:lang="en"/>
+</md:Organization>
+</md:EntityDescriptor>

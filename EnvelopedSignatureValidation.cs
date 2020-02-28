@@ -19,15 +19,41 @@ namespace SignAndVerifySignature
 
         public static void VerifyEnvelopedSignature()
         {
-            string path = Directory.GetCurrentDirectory();
+            VerifyEnvelopedSignatureType();
+            VerifyEnvelopedSignatureTypeNew();
+        }
 
+        public static void VerifyEnvelopedSignatureType()
+        {
+            string ScaniaPublicKey = "MIIDEjCCAfqgAwIBAgIHAeJ0c9/dljANBgkqhkiG9w0BAQUFADA4MQswCQYDVQQGEwJTRTEPMA0GA1UEChMGU0NBTklBMRgwFgYDVQQDEw93YW1lLnNjYW5pYS5jb20wHhcNMTMwNTIyMTIwMDUwWhcNMzMwMjA2MTIwMDUwWjA4MQswCQYDVQQGEwJTRTEPMA0GA1UEChMGU0NBTklBMRgwFgYDVQQDEw93YW1lLnNjYW5pYS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCf6jZYOekz5KPWs1TfJDYIsVgyZ1uKC4GV2ff8QYAWmswOWMFZvwwVJ9/OVSxMjcdT0jaidkKf75R1NqjwlhtEZcYBv9eChkv7v1iYuNkvoLm2+mp7k6eLYbg3rW0xfgnclNWJNynHXcThCJZ2ckvn1s/rEwfuwz7uZrVX68BFcm7MuM2M4/BDvQZWsZ1ZaFqMrtcT+CaPytuOVDfazbw7rRMcbvKStVg4jNMJDcZ/1OFBR8CJh3VtZWdtQDkT/LW/kHMPZs21F291+GynLNp+N7RTX722489vJvVS4WN7/2Aje7GF/3iQe9KfmQ4kI/Zq4qZOxdJFmrVxoxjlrpN1AgMBAAGjITAfMB0GA1UdDgQWBBR+aPnvfheFUM4CEF1ne9y+VCthSTANBgkqhkiG9w0BAQUFAAOCAQEAgAav0cHghDfYdZh000cDxKdE8XmpiDaUCJYTrv6OasspyTWlsIiT+xJuBzVNf59C6qIkJc8m1LAgshzq6mrm9XQ6sSDFvgfOd5OMT+fHB6F+kZJtDf10z9R+Qjk7r1mh8jMQeC+6NgQMTtrW/77fdy9eMJHseufvdi2YUiaysWkZvr/96/LlAbCIcKG0V9Ms3P1vPIy2y/GiXIbhyT7u8APXIpJXp1t+MBHi5m15LiH+/62j1Ey88BP3ng1eqtflKBq0mGvwiRPDNkEVLueZVA+4oWb22S681wO4cVrzjbLVVSuOFNMc5LnvdUP+f5jCYP5sxuj3f4FtmRI9HJUYtg==";
+
+            string path = Directory.GetCurrentDirectory();
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.PreserveWhitespace = false;
+            xdoc.Load(path + "\\Scania.xml");
+
+            byte[] certificateBytes = Convert.FromBase64String(ScaniaPublicKey);
+            X509Certificate2 publicKey = new X509Certificate2();
+            publicKey.Import(certificateBytes);
+
+            List<string> assertionIds = GetAssertionIds(xdoc);
+            foreach (string assertionId in assertionIds)
+            {
+                XmlElement assertionElement = GetAssertionById(xdoc.DocumentElement, assertionId, useResponseattribute: false);
+                IsValidEnvelopedSignature(assertionElement, new X509Certificate2Collection(publicKey));
+            }
+        }
+
+        public static void VerifyEnvelopedSignatureTypeNew()
+        {
+            string path = Directory.GetCurrentDirectory();
             XmlDocument xdoc = new XmlDocument();
             xdoc.PreserveWhitespace = true;
             // space matters. Please make sure you copy your message with correct spacing
-            xdoc.Load(path + "\\working.xml");
+            xdoc.Load(path + "\\response.xml");
 
             XmlDocument metadata = new XmlDocument();
-            metadata.Load(path + "\\metadata.xml");
+            metadata.Load(path + "\\metadata1.xml");
             X509Certificate2Collection certscollection = GetSigningKeys(metadata.ToXDocument());
 
             IsValidEnvelopedSignature(xdoc.DocumentElement, certscollection);
@@ -51,6 +77,10 @@ namespace SignAndVerifySignature
         /// <exception cref="CryptographicException">Thrown when the <paramref name="input"/> does not contain a Signature</exception>
         public static bool IsValidEnvelopedSignature(XmlElement input, X509Certificate2Collection certificates)
         {
+            //XmlDocument xdoc = new XmlDocument();
+            //xdoc.PreserveWhitespace = true;
+            //xdoc.LoadXml(input.OuterXml);
+
 
             SignedXml signedMessage = new SignedXml(input);
             XmlNodeList signatureNodes = input.GetElementsByTagName("Signature", "http://www.w3.org/2000/09/xmldsig#");
@@ -78,14 +108,14 @@ namespace SignAndVerifySignature
             return false;
         }
 
-        public static XmlElement GetAssertionById(XmlElement signedElement, string assertionId)
+        public static XmlElement GetAssertionById(XmlElement signedElement, string assertionId, bool useResponseattribute = true)
         {
             XmlNode assertionNode = signedElement.SelectSingleNode("//*[@ID=\"" + assertionId + "\"]");
 
             // Check if the assertion has the SAML namespace declarations.
             // If so we need to treat the assertion as a new document
             // using a namespace manager.
-            if (UseNamespaceManager(assertionNode.Attributes))
+            if (UseNamespaceManager(assertionNode.Attributes) || (useResponseattribute  && UseNamespaceManager(signedElement.Attributes)))
             {
                 XmlDocument document = new XmlDocument()
                 {
