@@ -20,7 +20,6 @@ namespace SignAndVerifySignature
         public static void VerifyEnvelopedSignature()
         {
             VerifyEnvelopedSignatureType();
-            VerifyEnvelopedSignatureTypeNew();
         }
 
         public static void VerifyEnvelopedSignatureType()
@@ -39,32 +38,32 @@ namespace SignAndVerifySignature
             List<string> assertionIds = GetAssertionIds(xdoc);
             foreach (string assertionId in assertionIds)
             {
-                XmlElement assertionElement = GetAssertionById(xdoc.DocumentElement, assertionId, useResponseattribute: false);
+                XmlElement assertionElement = GetAssertionById(xdoc.DocumentElement, assertionId);
                 IsValidEnvelopedSignature(assertionElement, new X509Certificate2Collection(publicKey));
             }
         }
 
-        public static void VerifyEnvelopedSignatureTypeNew()
-        {
-            string path = Directory.GetCurrentDirectory();
-            XmlDocument xdoc = new XmlDocument();
-            xdoc.PreserveWhitespace = true;
-            // space matters. Please make sure you copy your message with correct spacing
-            xdoc.Load(path + "\\response.xml");
+        //public static void VerifyEnvelopedSignatureTypeNew()
+        //{
+        //    string path = Directory.GetCurrentDirectory();
+        //    XmlDocument xdoc = new XmlDocument();
+        //    xdoc.PreserveWhitespace = true;
+        //    // space matters. Please make sure you copy your message with correct spacing
+        //    xdoc.Load(path + "\\response.xml");
 
-            XmlDocument metadata = new XmlDocument();
-            metadata.Load(path + "\\metadata1.xml");
-            X509Certificate2Collection certscollection = GetSigningKeys(metadata.ToXDocument());
+        //    XmlDocument metadata = new XmlDocument();
+        //    metadata.Load(path + "\\metadata1.xml");
+        //    X509Certificate2Collection certscollection = GetSigningKeys(metadata.ToXDocument());
 
-            IsValidEnvelopedSignature(xdoc.DocumentElement, certscollection);
+        //    IsValidEnvelopedSignature(xdoc.DocumentElement, certscollection);
 
-            List<string> assertionIds = GetAssertionIds(xdoc);
-            foreach (string assertionId in assertionIds)
-            {
-                XmlElement assertionElement = GetAssertionById(xdoc.DocumentElement, assertionId);
-                IsValidEnvelopedSignature(assertionElement, certscollection);
-            }
-        }
+        //    List<string> assertionIds = GetAssertionIds(xdoc);
+        //    foreach (string assertionId in assertionIds)
+        //    {
+        //        XmlElement assertionElement = GetAssertionById(xdoc.DocumentElement, assertionId);
+        //        IsValidEnvelopedSignature(assertionElement, certscollection);
+        //    }
+        //}
 
         /// <summary>
         /// Determines whether an XmlDocument signature is valid using the specified
@@ -108,14 +107,20 @@ namespace SignAndVerifySignature
             return false;
         }
 
-        public static XmlElement GetAssertionById(XmlElement signedElement, string assertionId, bool useResponseattribute = true)
+        public static XmlElement GetAssertionById(XmlElement signedElement, string assertionId)
         {
             XmlNode assertionNode = signedElement.SelectSingleNode("//*[@ID=\"" + assertionId + "\"]");
+
+            // https://github.com/yaronn/xml-crypto/issues/48
+            //XmlNodeList InclusiveNamespacesNodes = signedElement.GetElementsByTagName("InclusiveNamespaces", "http://www.w3.org/2001/10/xml-exc-c14n#");
+
+            // bool useNewDoc = InclusiveNamespacesNodes.Count > 0;
 
             // Check if the assertion has the SAML namespace declarations.
             // If so we need to treat the assertion as a new document
             // using a namespace manager.
-            if (UseNamespaceManager(assertionNode.Attributes) || (useResponseattribute  && UseNamespaceManager(signedElement.Attributes)))
+            bool createNewDoc = UseNamespaceManager(assertionNode.Attributes);
+            if (createNewDoc)
             {
                 XmlDocument document = new XmlDocument()
                 {
